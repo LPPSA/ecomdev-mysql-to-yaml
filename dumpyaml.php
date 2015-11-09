@@ -177,10 +177,10 @@ function sql_to_yaml($link, $sql, $table) {
 
         // Output the key/value pair
         if ($first){
-			$data .= $key . ": " . $literalFlag . $value  . "\n";
-			$first = false;
+          $data .= $key . ": " . $literalFlag . $value  . "\n";
+          $first = false;
         } else {
-			$data .= "      " . $key . ": " . $literalFlag . $value . "\n";
+          $data .= "      " . $key . ": " . $literalFlag . $value . "\n";
 		}	
       }
     }
