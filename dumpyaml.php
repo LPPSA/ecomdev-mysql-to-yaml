@@ -158,15 +158,16 @@ function sql_to_yaml($link, $sql, $table) {
   $result = mysql_query($sql, $link);
 
   if ($result) {
+	$data = "tables:" . "\n"; 
 
     // Output the table name
-    echo ($CONVERT_NAMES === true) ? convert_name_to_class($table) . ":\n" : "  {$table}:\n";
+    $data .= ($CONVERT_NAMES === true) ? convert_name_to_class($table) . ":\n" : "  {$table}:\n";
 
     // Loop over the result set
     while ($row = mysql_fetch_assoc($result)) {
       $first = true;
       // Output the row/collection indicator
-      echo "    - ";
+	  $data .= "    - ";
 
       // Loop over the columns output names and values
       foreach ($row as $key => $value) {
@@ -176,13 +177,14 @@ function sql_to_yaml($link, $sql, $table) {
 
         // Output the key/value pair
         if ($first){
-		echo "{$key}: {$literalFlag}{$value}\n";
-		$first = false;
+			$data .= $key . ": " . $literalFlag . $value  . "\n";
+			$first = false;
         } else {
-		echo "      {$key}: {$literalFlag}{$value}\n";
-	}
+			$data .= "      " . $key . ": " . $literalFlag . $value . "\n";
+		}	
       }
     }
+	file_put_contents('test.yaml', $data);
   }
 
   // Free the result resources
@@ -225,7 +227,7 @@ if (read_args()) {
   if (mysql_select_db($DBNAME)) {
 
     // Output header
-    echo "tables:\n";
+    //echo "<br />" . "tables:\n" . "<br />";
 
     // Query Mode
     if (!empty($DBQUERY)) {
