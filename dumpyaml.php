@@ -184,7 +184,10 @@ function sql_to_yaml($link, $sql, $table) {
 		}	
       }
     }
-	file_put_contents('test.yaml', $data);
+    date_default_timezone_set('Europe/Warsaw');
+    
+    $fileName = date('Y_m_d_h_i') . '.yaml';
+	file_put_contents($fileName, $data);
   }
 
   // Free the result resources
