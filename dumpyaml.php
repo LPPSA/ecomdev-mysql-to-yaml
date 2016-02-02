@@ -185,8 +185,11 @@ function sql_to_yaml($link, $sql, $table) {
       }
     }
     date_default_timezone_set('Europe/Warsaw');
-    
-    $fileName = date('Y_m_d_h_i') . '.yaml';
+
+    $fileName = date('Y_m_d_h_i_s') . '.yaml';
+    if (file_exists($fileName)) {
+      $fileName = date('Y_m_d_h_i_s') . " _ " . uniqid() . '.yaml';
+    }
 	file_put_contents($fileName, $data);
   }
 
